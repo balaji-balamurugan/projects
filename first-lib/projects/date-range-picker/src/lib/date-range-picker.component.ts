@@ -1,7 +1,7 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { DateRange, MatCalendar } from '@angular/material/datepicker';
 import { startOfDay, endOfDay, format, subDays, startOfMonth, subMonths, lastDayOfMonth, startOfQuarter, subQuarters, endOfQuarter } from 'date-fns';
 
@@ -50,8 +50,8 @@ export class DateRangePickerComponent {
       label: 'Quarter to date',
     }
   ];
-  startDate = new FormControl(format(new Date(), 'dd-MM-yyyy'));
-  endDate = new FormControl(format(new Date(), 'dd-MM-yyyy'));
+  startDate = new UntypedFormControl(format(new Date(), 'dd-MM-yyyy'));
+  endDate = new UntypedFormControl(format(new Date(), 'dd-MM-yyyy'));
 
   constructor(
     private _overlay: Overlay,
