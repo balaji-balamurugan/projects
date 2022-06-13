@@ -16,7 +16,7 @@ export interface Outlet {
   outletUrlId?: string;
   features: Feature;
   franchise: IDLabel | null;
-  tax?: IDLabel[];
+  tax?: IDLabel[] | null;
   location?: {
     address: string;
     zip: string;
@@ -146,13 +146,13 @@ export interface MultiImgUploadType {
 }
 
 
-type exceptionControl = Status | IDLabelModule | IDLabel | IDLabel[] | undefined;
+type exceptionControl = Status | IDLabelModule | IDLabel | IDLabel[];
 
 export type ControlOf<T extends Record<string, any>> = {
   [K in keyof T]:
   T[K] extends Array<infer Item>  ? FormArray<T[K]>:
   T[K] extends exceptionControl ? FormControl<T[K]> :
-  T[K] extends Record<any, any>?
+  T[K] extends Record<string, any>?
   FormGroup<ControlOf<T[K]>> :
   FormControl<T[K]>
 }
