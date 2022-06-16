@@ -3,20 +3,20 @@
 import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
 
 export interface Outlet {
-  id: string;
-  isActive: boolean;
-  sort: number;
-  name: string;
-  metadata: Metadata |null;
-  machineCode?: string;
-  internalName: string;
-  status?: Status;
-  bizType: IDLabelModule | null;
-  zone: IDLabel | null;
-  outletUrlId?: string;
-  features: Feature;
-  franchise: IDLabel | null;
-  tax?: IDLabel[] | null;
+  // id: string;
+  // isActive: boolean;
+  // sort: number;
+  // name: string;
+  // metadata: Metadata |null;
+  // machineCode?: string;
+  // internalName: string;
+  // status?: Status | null;
+  // bizType: IDLabelModule | null;
+  // zone: IDLabel | null;
+  // outletUrlId?: string;
+  // features: Feature;
+  // franchise: IDLabel | null;
+  // tax?: IDLabel[] | null;
   location?: {
     address: string;
     zip: string;
@@ -146,18 +146,30 @@ export interface MultiImgUploadType {
 }
 
 
-type exceptionControl = Status | IDLabelModule | IDLabel | IDLabel[];
+type exceptionControl = Status | IDLabelModule | IDLabel | IDLabel[]
+| ImgUploadType | MultiImgUploadType[];
 
 export type ControlOf<T extends Record<string, any>> = {
   [K in keyof T]:
   T[K] extends Array<infer Item>  ? FormArray<T[K]>:
   T[K] extends exceptionControl ? FormControl<T[K]> :
-  T[K] extends Record<string, any>?
+  T[K] extends Record<any, any>?
   FormGroup<ControlOf<T[K]>> :
   FormControl<T[K]>
-}
+};
 
 type formType = ControlOf<Outlet>;
+
+
+type RecursiveRequired<T> = {
+  [P in keyof T]-?:
+    T[P] extends (infer U)[] ? RecursiveRequired<U>[] :
+    T[P] extends (object | undefined) ? RecursiveRequired<T[P]> :
+    T[P];
+};
+
+type required = RecursiveRequired<Outlet>;
+
 
 export interface Feature {
   booking: IDLabel | null;
