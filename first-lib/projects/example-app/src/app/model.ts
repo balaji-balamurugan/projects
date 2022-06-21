@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { AngularForm, AngularFormGroup } from "@oasisdigital/angular-typed-forms-helpers";
 
 export interface Outlet {
-  // id: string;
-  // isActive: boolean;
-  // sort: number;
-  // name: string;
+  id: string;
+  isActive: boolean;
+  sort: number;
+  name: string;
   // metadata: Metadata |null;
   // machineCode?: string;
   // internalName: string;
@@ -17,50 +18,50 @@ export interface Outlet {
   // features: Feature;
   // franchise: IDLabel | null;
   // tax?: IDLabel[] | null;
-  location?: {
-    address: string;
-    zip: string;
-    lat: number;
-    long: number;
-    geopoint?: { lat: number , lng: number};
-  };
-  display?: {
-    subtitle?: string;
-    video?: string;
-    outletColor?: string;
-    mobileBanner?: ImgUploadType;
-    webBanner?: ImgUploadType;
-    logo?: ImgUploadType;
-    gallery?: MultiImgUploadType[];
-  };
-  config?: {
-    category?: IDLabel[];
-    tag?: IDLabel[];
-    featured?: IDLabel[];
-    prepTime?: number;
-  };
-  override?: {
-    isPayment?: boolean;
-    isOpHours?: boolean;
-    isCommission?: boolean;
-    isServiceArea?: boolean;
-    isTimeSlot?: boolean;
-    isSubscription?: boolean;
-    isTax?: boolean;
-    isItem?: boolean;
-  };
-  communication?: {
-    display?: {
-      phone?: number[];
-    };
-    notify?: {
-      callAdmin?: number[];
-      callManager?: number[];
-      notifyWhatsapp?: number[];
-      notifyEmail?: string[];
-      notifySms?: number[];
-    };
-  };
+  // location?: {
+  //   address?: string;
+  //   zip?: string;
+  //   lat?: number;
+  //   long?: number;
+  //   geopoint?: { lat: number , lng: number};
+  // };
+  // display?: {
+  //   subtitle?: string;
+  //   video?: string;
+  //   outletColor?: string;
+  //   mobileBanner?: ImgUploadType | null;
+  //   webBanner?: ImgUploadType | null;
+  //   logo?: ImgUploadType | null;
+  //   gallery?: MultiImgUploadType[] | null;
+  // };
+  // config?: {
+  //   category?: IDLabel[];
+  //   tag?: IDLabel[];
+  //   featured?: IDLabel[];
+  //   prepTime?: number;
+  // };
+  // override?: {
+  //   isPayment?: boolean;
+  //   isOpHours?: boolean;
+  //   isCommission?: boolean;
+  //   isServiceArea?: boolean;
+  //   isTimeSlot?: boolean;
+  //   isSubscription?: boolean;
+  //   isTax?: boolean;
+  //   isItem?: boolean;
+  // };
+  // communication?: {
+  //   display?: {
+  //     phone?: number[];
+  //   };
+  //   notify?: {
+  //     callAdmin?: number[];
+  //     callManager?: number[];
+  //     notifyWhatsapp?: number[];
+  //     notifyEmail?: string[];
+  //     notifySms?: number[];
+  //   };
+  // };
   // extra?: any;
   // custom?: any;
   // lang?: any;
@@ -146,30 +147,21 @@ export interface MultiImgUploadType {
 }
 
 
-type exceptionControl = Status | IDLabelModule | IDLabel | IDLabel[]
-| ImgUploadType | MultiImgUploadType[];
+// type exceptionControl =
+// Status | IDLabelModule | IDLabel | IDLabel[]
+// | ImgUploadType | MultiImgUploadType[];
 
-export type ControlOf<T extends Record<string, any>> = {
-  [K in keyof T]:
-  T[K] extends Array<infer Item>  ? FormArray<T[K]>:
-  T[K] extends exceptionControl ? FormControl<T[K]> :
-  T[K] extends Record<any, any>?
-  FormGroup<ControlOf<T[K]>> :
-  FormControl<T[K]>
-};
-
-type formType = ControlOf<Outlet>;
+// export type ControlOf<T extends Record<string, any>> = {
+//   [K in keyof T]:
+//   T[K] extends Array<infer Item>  ? FormArray<T[K]>:
+//   T[K] extends exceptionControl ? FormControl<T[K]> :
+//   T[K] extends Record<any, any>?
+//   FormGroup<ControlOf<T[K]>> :
+//   FormControl<T[K]>
+// };
 
 
-type RecursiveRequired<T> = {
-  [P in keyof T]-?:
-    T[P] extends (infer U)[] ? RecursiveRequired<U>[] :
-    T[P] extends (object | undefined) ? RecursiveRequired<T[P]> :
-    T[P];
-};
-
-type required = RecursiveRequired<Outlet>;
-
+export type forms = AngularFormGroup<Outlet>;
 
 export interface Feature {
   booking: IDLabel | null;
